@@ -1,0 +1,88 @@
+.eds-enablement-block {
+  --eds-enablement-surface: #f1f6ff;
+  --eds-enablement-border: #bfd1ec;
+  --eds-enablement-accent: #1d5fa7;
+}
+
+.eds-enablement-block .eds-enablement-block-items {
+  display: grid;
+  gap: 24px;
+}
+
+.eds-enablement-block .eds-enablement-block-item {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--eds-enablement-border);
+  border-radius: 16px;
+  background: var(--eds-enablement-surface);
+}
+
+.eds-enablement-block .eds-enablement-block-image {
+  line-height: 0;
+}
+
+.eds-enablement-block .eds-enablement-block-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  object-fit: cover;
+}
+
+.eds-enablement-block .eds-enablement-block-content {
+  padding: 24px;
+}
+
+.eds-enablement-block .eds-enablement-block-content > :first-child {
+  margin-top: 0;
+}
+
+.eds-enablement-block .eds-enablement-block-content > :last-child {
+  margin-bottom: 0;
+}
+
+.eds-enablement-block .eds-enablement-block-content h2,
+.eds-enablement-block .eds-enablement-block-content h3 {
+  color: var(--eds-enablement-accent);
+}
+
+.eds-enablement-block.session-two,
+.session-two .eds-enablement-block {
+  --eds-enablement-surface: #f8f1ff;
+  --eds-enablement-border: #d8c1ef;
+  --eds-enablement-accent: #6d3b92;
+}
+
+.eds-enablement-block.session-practice,
+.session-practice .eds-enablement-block {
+  --eds-enablement-surface: #1b2430;
+  --eds-enablement-border: #3c5066;
+  --eds-enablement-accent: #9ed1ff;
+}
+
+.eds-enablement-block.session-practice .eds-enablement-block-item,
+.session-practice .eds-enablement-block .eds-enablement-block-item {
+  color: white;
+}
+
+.eds-enablement-block.session-practice .eds-enablement-block-content h2,
+.eds-enablement-block.session-practice .eds-enablement-block-content h3,
+.session-practice .eds-enablement-block .eds-enablement-block-content h2,
+.session-practice .eds-enablement-block .eds-enablement-block-content h3 {
+  color: var(--eds-enablement-accent);
+}
+
+@media (width >= 900px) {
+  .eds-enablement-block .eds-enablement-block-item {
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .eds-enablement-block .eds-enablement-block-item:nth-child(even) .eds-enablement-block-image {
+    order: 2;
+  }
+
+  .eds-enablement-block .eds-enablement-block-content {
+    align-self: center;
+    padding: 40px;
+  }
+}

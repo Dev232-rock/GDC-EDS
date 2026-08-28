@@ -10,6 +10,8 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toClassName,
 } from './aem.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -143,6 +145,29 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies author-provided section styles and removes their metadata table.
+ * @param {Element} main The container element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll('.section').forEach((section) => {
+    const metadata = section.querySelector(':scope > div > .section-metadata');
+    if (!metadata) return;
+
+    const { style } = readBlockConfig(metadata);
+    if (typeof style === 'string') {
+      style.split(',')
+        .map((value) => toClassName(value.trim()))
+        .filter(Boolean)
+        .forEach((className) => section.classList.add(className));
+    }
+
+    const wrapper = metadata.parentElement;
+    if (wrapper.children.length === 1) wrapper.remove();
+    else metadata.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -151,6 +176,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }

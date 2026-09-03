@@ -2,16 +2,35 @@ export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
 
-  // setup image columns
   [...block.children].forEach((row) => {
     [...row.children].forEach((col) => {
-      const pic = col.querySelector('picture');
-      if (pic) {
-        const picWrapper = pic.closest('div');
+      // Check for an existing EDS image
+      const picture = col.querySelector('picture');
+
+      if (picture) {
+        const picWrapper = picture.closest('div');
+
         if (picWrapper && picWrapper.children.length === 1) {
-          // picture is only content in column
           picWrapper.classList.add('columns-img-col');
         }
+
+        return;
+      }
+
+      // Check for an image URL entered as plain text
+      const text = col.textContent.trim();
+
+      const imageUrlPattern = /^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i;
+
+      if (imageUrlPattern.test(text)) {
+        const img = document.createElement('img');
+        img.src = text;
+        img.alt = 'Column image';
+        img.loading = 'lazy';
+
+        col.textContent = '';
+        col.append(img);
+        col.classList.add('columns-img-col');
       }
     });
   });
